@@ -1,0 +1,25 @@
+class Solution {
+    public int[] solution(int[] prices) {
+        int len = prices.length;
+        int[] answer = new int [len];
+        
+        for (int i=0;i<len-1;i++) {
+            int check = -1;
+            for (int j=i+1;j<len;j++) {
+                if (prices[i] > prices[j]) {
+                    check = j;
+                    break;
+                }
+            }
+            
+            if (check == -1) {
+                answer[i] = prices.length-1-i;
+            }
+            else {
+                answer[i] = check - i;
+            }            
+        }
+        
+        return answer;
+    }
+}
