@@ -1,0 +1,40 @@
+class Solution {
+    public boolean solution(String[] phone_book) {
+        boolean answer = true;
+        
+//         for (int i=0;i<phone_book.length;i++) {
+//             for (int j=0;j<phone_book.length;j++) {                
+//                 if (i != j && phone_book[i].length() <= phone_book[j].length()) {
+//                     int cnt = 0;
+//                     for (int k=0;k<phone_book[i].length();k++) {
+//                         char ch1 = phone_book[i].charAt(k);
+//                         char ch2 = phone_book[j].charAt(k);
+                        
+//                         if (ch1 == ch2) {
+//                             cnt++;
+//                         }
+//                     }
+                    
+//                     if (cnt == phone_book[i].length()) {
+//                         answer = false;
+//                         return answer;
+//                     }                   
+//                 }
+//             }
+//         }
+        
+        //a.startsWith(b) : a가 b로 시작하냐?true:false       
+        for (int i=0;i<phone_book.length-1;i++) {
+            for (int j=i+1;j<phone_book.length;j++) {
+                if (phone_book[i].startsWith(phone_book[j])) {
+                    return false;
+                }
+                if (phone_book[j].startsWith(phone_book[i])) {
+                    return false;
+                }
+            }
+        }
+        
+        return answer;
+    }
+}
