@@ -1,0 +1,58 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+class Solution {
+    public int solution(int bridge_length, int weight, int[] truck_weights) {
+        int answer = 0;
+        int t_cnt = truck_weights.length;
+        
+        Queue <Integer> q = new LinkedList<>();//트럭을 넣는다. 
+
+        // 1. 첫 번째 트럭은 q에 넣는다. 
+        int sum = 0;        
+        int p = 0;
+        
+        int tw = truck_weights[p];
+        q.add(tw);
+        sum += tw;
+        p++;
+        answer++;
+                
+        while (true) {
+            
+            // 2. 다리 길이와 q 사이즈를 확인한다.
+            if (q.size() == bridge_length) {
+                int temp = q.poll();
+                sum -= temp;
+            }
+            
+            // 3. 아직 남은 트럭이 있다면 -> 무게 체크
+            if (p < t_cnt) {
+                tw = truck_weights[p];
+                sum += tw;
+                
+                if (sum <= weight) {
+                    q.add(tw);
+                    p++;
+                }
+                else {
+                    q.add(0);
+                    sum -= tw;
+                }                
+            }
+            
+            // 4. 트럭이 다 q에 들어갔고, sum이 아직 0이 아니라면
+            else if (p == t_cnt) {
+                q.add(0);
+            }
+            
+            answer++;
+            
+            if (sum == 0) {
+                break;
+            }
+        }
+           
+        return answer;
+    }
+}
