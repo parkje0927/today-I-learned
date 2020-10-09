@@ -1,0 +1,60 @@
+class Solution {
+    
+    int count = 0;
+    
+    // 사용 예시 : combination(arr, visited, 0, n, r) : n개 중에서 r개 뽑기
+    void combination(int[] arr, boolean[] visited, int start, int n, int r) {
+        if(r == 0) {
+            int temp = 1;
+            for (int i=0;i<n;i++) {
+                if (visited[i]) {
+                    temp *= arr[i];
+                }
+            }
+            count += temp;
+            return;
+        } 
+
+        for(int i=start;i<n;i++) {
+            visited[i] = true;
+            combination(arr, visited, i + 1, n, r - 1);
+            visited[i] = false;
+        }
+    }
+        
+    public int solution(String[][] clothes) {
+        
+        int answer = 0;
+        int len = clothes.length;
+
+        int temp[] = new int [35];
+        int idx = 0;
+        int check[] = new int [35];
+        for (int i=0;i<len;i++) {
+            String kind = clothes[i][1];
+
+            if (check[i] == 1) {
+                continue;
+            }
+
+            int cnt = 1;
+            check[i] = 1;
+            for (int j=0;j<len;j++) {
+                if (check[j] == 0 && kind.compareTo(clothes[j][1]) == 0) {
+                    check[j] = 1;
+                    cnt++;
+                }
+            }
+
+            temp[idx++] = cnt;
+        } 
+        
+        boolean visited[] = new boolean[len];
+        for (int i=1;i<=idx;i++) {
+            combination(temp, visited, 0, idx, i);
+        } 
+        
+        answer = count;
+        return answer;
+    }
+}
