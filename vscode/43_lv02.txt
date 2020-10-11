@@ -1,0 +1,28 @@
+class Solution {
+    
+    public int solution(int n) {
+        int answer = 0;
+        
+        if (n == 1) {
+            return 1;
+        }
+
+        int a = 0; int b = 1;
+        int n_count = 1; 
+        
+        while (true) {
+            
+            int c = (a + b) % 1234567;
+            n_count++;
+            if (n_count == n) {
+                answer = c;
+                break;
+            }
+                     
+            a = b;
+            b = c;     
+        }
+        
+        return answer;
+    }
+}
