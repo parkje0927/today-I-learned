@@ -1,0 +1,42 @@
+class Solution {
+    
+    int answer = 0;
+    
+    void comb(int [] numbers, boolean [] visited, int start, int n, int r, int t) {
+        
+        if (r == 0) {
+            int sum = 0;
+            for (int i=0;i<n;i++) {
+                if (visited[i]) {
+                    sum -= numbers[i];
+                }
+                else {
+                    sum += numbers[i];
+                }
+            }
+            
+            if (sum == t) {
+                answer++;
+            }
+        }
+        
+        for (int i=start;i<n;i++) {
+            visited[i] = true;
+            comb(numbers, visited, i+1, n, r-1, t);
+            visited[i] = false;
+        }        
+    }
+    
+    
+    public int solution(int[] numbers, int target) {
+        
+        int len = numbers.length;
+        
+        boolean [] visited = new boolean[len];
+        for (int i=1;i<=len;i++) {
+            comb(numbers, visited, 0, len, i, target);
+        }
+        
+        return answer;
+    }
+}
