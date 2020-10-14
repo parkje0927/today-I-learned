@@ -1,0 +1,2 @@
+-- 최솟값 구하기
+SELECT min(datetime) from animal_ins;
