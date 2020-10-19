@@ -1,0 +1,48 @@
+import java.util.PriorityQueue;
+
+class Solution {
+    public int solution(int[] scoville, int K) {
+        int answer = 0;
+        
+        PriorityQueue<Integer> q = new PriorityQueue<Integer>();
+        int cnt = 0;
+        for (int i=0;i<scoville.length;i++) {
+            if (scoville[i] == 0) {
+                cnt++;
+            }
+            q.add(scoville[i]);
+        }
+        
+        //모든 음식을 K이상으로 만들 수 없는 경우
+        if (cnt == 2) {
+            answer = -1;
+            return answer;
+        }
+        
+        //섞지 않아도 되는 경우
+        if (q.peek() >= K) {
+            answer = 0;
+            return answer;
+        }
+        
+        while(true){
+            int fir = q.poll();
+            int sec = q.poll();
+
+            int temp = fir + (sec * 2);
+            q.add(temp);
+            answer++;
+            
+            if (q.size() == 1 && q.peek() < K) {
+                answer = -1;
+                break;
+            }
+            
+            if (q.peek() >= K) {
+                break;
+            }
+        }
+
+        return answer;
+    }
+}
