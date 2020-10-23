@@ -1,0 +1,80 @@
+import java.util.LinkedList;
+
+class Solution {
+    
+    LinkedList<Integer> perm = new LinkedList<>();
+    
+    public void getresult(int n, int r, LinkedList<String> arr, int [] check, String [] temp) {
+        
+        String result = "";
+        if (arr.size() == r) {
+            for (String i : arr) {
+                result += i;
+            }
+            
+            if (result.charAt(0) == '0') {
+                return;
+            }
+            
+            int ttemp = Integer.parseInt(result);
+            //소수 인지 확인
+            if (ttemp != 1) {  
+                int flag1 = 0;
+                for (int i=2;i<ttemp;i++) {
+                    if (ttemp % i == 0) {
+                        flag1 = 1;
+                        break;
+                    }
+                }
+                
+                //중복 여부 확인
+                if (ttemp == 2 || flag1 == 0) {
+                    int flag2 = 0;
+                    for (int i=0;i<perm.size();i++) {
+                        if (perm.get(i) == ttemp) {
+                            flag2 = 1;
+                            break;
+                        }
+                    } 
+                    
+                    if (flag2 == 0) {
+                        perm.add(ttemp);
+                    }
+                }
+            }          
+        }
+        
+        for (int i=0;i<n;i++) {
+            if (check[i] == 0) {
+                arr.add(temp[i]);
+                check[i] = 1;
+                getresult(n, r, arr, check, temp);
+                check[i] = 0;
+                arr.removeLast();
+            }
+        }
+        
+    }
+    
+    public int solution(String numbers) {
+        
+        int answer = 0;
+        
+        int len = numbers.length();
+        String num [] = new String [len];
+        for (int i=0;i<len;i++) {
+            //char to String 변환 방법 => + ""
+            num[i] = numbers.charAt(i) + ""; 
+        }
+        
+        LinkedList<String> arr = new LinkedList<>();
+        int [] check = new int [len];
+        for (int i=1;i<=len;i++) {
+            getresult(len, i, arr, check, num);
+        }
+        
+        answer = perm.size();
+        
+        return answer;
+    }
+}
