@@ -1,0 +1,74 @@
+import java.util.ArrayList;
+
+class Solution {
+    public String solution(String s) {
+        String answer = "";
+
+        String [] temp = s.split(" ");
+        int max = Integer.parseInt(temp[0]);
+        int min = Integer.parseInt(temp[0]);
+        for (int i=0;i<temp.length;i++) {
+            int num = Integer.parseInt(temp[i]);
+            
+            if (num > max) {
+                max = num;
+            }
+            if (num < min) {
+                min = num;
+            }
+        }
+        
+        answer = min + " " + max;
+        
+        
+        // ArrayList <Integer> arr = new ArrayList<>();
+        // int front = 0;
+        // int rear = 0;
+        
+//         while (true) {
+            
+//             if (rear == s.length() || s.charAt(rear) - '0' == -16) {
+                
+//                 int check = 0;
+//                 String result = "";
+//                 for (int i=front;i<rear;i++) {
+//                     if (s.charAt(i) == '-') {
+//                         check = 1;
+//                     }
+//                     else {
+//                         result += s.charAt(i);
+//                     }
+//                 }
+                
+//                 int num = Integer.parseInt(result);
+//                 if (check == 1) {
+//                     num *= (-1);
+//                 }
+//                 arr.add(num);
+                
+//                 front = rear+1;
+//             }
+            
+//             if (rear >= s.length()) {
+//                 break;
+//             }
+            
+//             rear++;
+//         }
+        
+//         int min = arr.get(0);
+//         int max = arr.get(0);
+//         for (int i=0;i<arr.size();i++) {
+//             if (arr.get(i) > max) {
+//                 max = arr.get(i);
+//             }
+//             if (arr.get(i) < min) {
+//                 min = arr.get(i);
+//             }
+//         }
+        
+//         answer = min + " " + max;
+        
+        return answer;
+    }
+}
