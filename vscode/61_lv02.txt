@@ -1,0 +1,27 @@
+class Solution {
+    public String solution(String number, int k) {
+        String answer = "";
+        StringBuilder a = new StringBuilder(number);
+        
+        for (int i=0;i<k;i++) {    
+            int len = a.length();
+            int idx = len - 1;
+            
+            for (int j=0;j<len-1;j++) {
+                char f = a.charAt(j);
+                char s = a.charAt(j+1);  
+                
+                if (f < s) {
+                    idx = j;
+                    break;
+                }
+            }
+            
+            a.deleteCharAt(idx);
+        }
+        
+        answer = a.toString();
+
+        return answer;
+    }
+}
