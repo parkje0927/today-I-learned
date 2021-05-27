@@ -1,61 +1,44 @@
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 
 //보석 쇼핑  
 public class intern04 {
+    public int[] solution(String[] gems) {
+        //int[] answer = new int[2];
 
-    public static void main(String[] args) {
-            String[] gems = {"DIA", "RUBY", "RUBY", "DIA", "DIA", "EMERALD", "SAPPHIRE", "DIA"};
-            int[] answer = new int[2];
-    
-            HashMap<String, Integer> map = new HashMap<>();
-            for (int i=0;i<gems.length;i++) {
-                map.put(gems[i], -1);
-            }
-    
-            int min = gems.length + 100;
-            int start = 0;
-            int end = 0;
-    
-            int front = 0;
-            int rear = gems.length - 1;
+        HashMap<String, Integer> map = new HashMap<>();
+        HashSet<String> set = new HashSet<>();
+        for (String s : gems) {
+            set.add(s);
+        }
+        
+        int start = 0;
+        int tempStr = 0;
+        int len = gems.length;
+        Queue<String> q = new LinkedList<>();
+
+        for (int i=0;i<gems.length;i++) {
+            map.put(gems[i], map.getOrDefault(gems[i], 0) + 1);
+
+            q.add(gems[i]);
             while (true) {
-                for (int i=front;i<=rear;i++) {
-                    map.put(gems[i], front);
-                }
-    
-                int flag = 0;
-                for (String key : map.keySet()) {
-                    if (map.get(key) != front) {
-                        flag = 1;
-                        break;
-                    }
-                }
-
-                for (String key : map.keySet()) {
-                    System.out.println(key + " " + map.get(key));
-                }
-                System.out.println(flag);
-    
-                if (flag == 0) {
-                    if (min > rear - front) {
-                        min = rear - front;
-                        start = front + 1;
-                        end = rear + 1;
-    
-                        answer[0] = start;
-                        answer[1] = end;
-                    }
-                }
-                front++;
-                rear--;
-                if (front > rear) {
-                    break;
-                }
+                String gem = q.peek();
+                if (map.get(gem) > 1) {
+                    map.put(gem, map.get(gem) - 1);
+                    q.poll();
+                    tempStr++;
+                } else break;
             }
-    
-            for (int i=0;i<2;i++) {
-                System.out.println(answer[i]);
+
+            if (map.size() == set.size()) {
+                if (len > q.size()) {
+                    len = q.size();
+                    start = tempStr;
+                }
             }
         }
-    
+        return new int[] {start + 1, start + len};
+    }
 }
