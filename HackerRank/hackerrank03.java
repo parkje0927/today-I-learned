@@ -14,13 +14,8 @@ class hackerrank03 {
         // Write your code here
         String answer = "";
 
-        String[] hours = {
-            "one", "two", "three", "four", "five", "six", "seven", "eight",
-            "nine", "ten", "eleven", "twelve"
-        };
-
         String[] minutes = {
-            "one", "two", "three", "four", "five", "six", "seven", "eight",
+            "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
             "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
             "sixteen", "seventeen", "eighteen", "nineteen", "twenty", 
             "twenty one", "twenty two", "twenty three", "twenty four", 
@@ -34,21 +29,70 @@ class hackerrank03 {
             "o' clock"
         };
 
+        String[] hours = {
+            "one", "two", "three", "four", "five", "six", "seven", "eight",
+            "nine", "ten", "eleven", "twelve"
+        };
+
         //mid
+        int checkExact = 0;
         String mid = "";
-        if (m == 00) {
+        if (m == 0) {
             mid = mids[2];
+            checkExact = 1;
+        }
+        else {
+            if (m >= 1 && m <= 30) {
+                mid = mids[0];
+            } else {
+                mid = mids[1];
+            }
+        }
+        
+        //minute
+        int checkMinute = 0;
+        String minute = "";
+        if (m > 30) {
+            m = 60 - m;
+            checkMinute = 1;
         }
 
-        //minute
+        if (m % 30 == 0) {
+            minute = "half";
+        } else if (m == 15 || m == 45) {
+            minute = "quarter";
+        } else {
+            for (int i=1;i<=29;i++) {
+                if (m == i) {
+                    minute = minutes[i];
+                    minute += m > 1 ? " minutes" : " minute";
+                    break;
+                }
+            }
+        }
 
-        //quater
+        //hour
+        String hour = "";
+        for (int i=1;i<=hours.length;i++) {
+            if (h == i) {
+                if (checkMinute == 1) {
+                    if (h == 12) {
+                        hour = "one";
+                    } else {
+                        hour = hours[i];
+                    }
+                } else {
+                    hour = hours[i-1];
+                }
+                break;
+            }
+        }
 
-        //1 ~ 30분까지
-
-
-        //31 ~ 59분까지
-
+        if (checkExact == 1) {
+            answer = hour + " " + mid;
+        } else {
+            answer = minute + " " + mid + " " + hour;
+        }
 
         return answer;
     }
