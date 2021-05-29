@@ -5,7 +5,7 @@ import java.util.List;
 public class hackerrank08 {
     /*
      * Complete the 'hourglassSum' function below.
-     *
+     *s
      * The function is expected to return an INTEGER.
      * The function accepts 2D_INTEGER_ARRAY arr as parameter.
      */
